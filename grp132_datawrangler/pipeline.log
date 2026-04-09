@@ -1,0 +1,85 @@
+15:57:45  INFO      grp132 Data Pipeline — 2026-03-15 15:57
+15:57:45  INFO      Start: 2000-01-01  |  End: today
+15:57:45  INFO      ============================================================
+15:57:45  INFO      STEP 1 — Data Acquisition
+15:57:45  INFO      ============================================================
+15:57:45  INFO      EIA: fetching WTI weekly spot price ...
+15:57:46  INFO        → 1366 weekly WTI records (2000-01-07 – 2026-03-06)
+15:57:46  INFO      EIA: fetching U.S. crude production (monthly) ...
+15:57:49  INFO        → 312 monthly production records (2000-01-01 – 2025-12-01)
+15:57:49  INFO      Baker Hughes: reading weekly rig count (sheet: NAM Weekly) ...
+15:57:49  INFO        BH using local file: 08-29-2025 North America Rig Count Report.xlsx
+15:57:58  INFO        → 169309 weekly rig-count records (2013-01-04 – 2025-08-29)
+15:57:58  INFO      Baker Hughes: reading monthly rig count (sheet: NAM Monthly) ...
+15:57:58  INFO        BH using local file: 08-29-2025 North America Rig Count Report.xlsx
+15:58:00  INFO        → 152 monthly rig-count records (2013-01-01 – 2025-08-01)
+15:58:00  INFO      Stooq: fetching S&P 500 (^SPX) ...
+15:58:01  INFO        → 6588 daily S&P 500 records (2000-01-03 – 2026-03-13)
+15:58:01  INFO      FRED: fetching daily series ...
+15:58:03  INFO        → 6835 daily records (2000-01-03 – 2026-03-13) | cols: ['wti_price_d', 't10y2y', 'dxy', 'sp500']
+15:58:03  INFO      FRED: fetching monthly series ...
+15:58:07  INFO        → 314 monthly records (2000-01-01 – 2026-02-01) | cols: ['fed_funds', 'unemployment', 'indpro', 'cpi', 'ppi', 'ng_price', 'recession', 't_bill_3m', 'treasury_2y', 'treasury_10y']
+15:58:07  INFO      FRED: fetching quarterly series ...
+15:58:07  INFO        → 104 quarterly records | cols: ['real_gdp']
+15:58:07  INFO        S&P 500: using Yahoo Finance data.
+15:58:07  INFO        raw cache saved → /Users/karinagutierrez/Documents/OMSCS/CS6242/Group Project/grp132_datawrangler/data/raw/eia/wti_weekly.csv
+15:58:07  INFO        raw cache saved → /Users/karinagutierrez/Documents/OMSCS/CS6242/Group Project/grp132_datawrangler/data/raw/eia/us_production_monthly.csv
+15:58:07  INFO        raw cache saved → /Users/karinagutierrez/Documents/OMSCS/CS6242/Group Project/grp132_datawrangler/data/raw/baker_hughes/rig_count_weekly.csv
+15:58:07  INFO        raw cache saved → /Users/karinagutierrez/Documents/OMSCS/CS6242/Group Project/grp132_datawrangler/data/raw/baker_hughes/rig_count_monthly.csv
+15:58:07  INFO        raw cache saved → /Users/karinagutierrez/Documents/OMSCS/CS6242/Group Project/grp132_datawrangler/data/raw/yahoo/sp500_daily.csv
+15:58:07  INFO        raw cache saved → /Users/karinagutierrez/Documents/OMSCS/CS6242/Group Project/grp132_datawrangler/data/raw/fred/fred_daily.csv
+15:58:07  INFO        raw cache saved → /Users/karinagutierrez/Documents/OMSCS/CS6242/Group Project/grp132_datawrangler/data/raw/fred/fred_monthly.csv
+15:58:07  INFO        raw cache saved → /Users/karinagutierrez/Documents/OMSCS/CS6242/Group Project/grp132_datawrangler/data/raw/fred/fred_quarterly.csv
+15:58:07  INFO      ============================================================
+15:58:07  INFO      STEP 2 — Cleaning
+15:58:07  INFO      ============================================================
+15:58:07  WARNING     fred_daily | dxy: 26.0% missing
+15:58:07  INFO      ============================================================
+15:58:07  INFO      STEP 3 — Merging into master datasets
+15:58:07  INFO      ============================================================
+15:58:07  INFO      Building master_daily ...
+15:58:07  INFO        → master_daily shape: (5270, 5)
+15:58:07  INFO      Building master_weekly ...
+15:58:08  INFO        → master_weekly shape: (227, 14) | columns: ['wti_price_weekly', 'rig_count', 'fed_funds', 'unemployment', 'indpro', 'cpi', 'ppi', 'ng_price', 'recession', 't_bill_3m', 'treasury_2y', 'treasury_10y', 'sp500', 'sp500_ret_w']
+15:58:08  INFO      Building master_monthly ...
+15:58:08  INFO        → master_monthly shape: (155, 81) | columns: ['wti_price_weekly', 'rig_count', 'rig_country_canada', 'rig_country_united_states', 'rig_basin_ardmore_woodford', 'rig_basin_arkoma_woodford', 'rig_basin_barnett', 'rig_basin_cana_woodford', 'rig_basin_dj-niobrara', 'rig_basin_eagle_ford', 'rig_basin_fayetteville', 'rig_basin_granite_wash', 'rig_basin_haynesville', 'rig_basin_marcellus', 'rig_basin_mississippian', 'rig_basin_other', 'rig_basin_permian', 'rig_basin_utica', 'rig_basin_williston', 'rig_drillfor_gas', 'rig_drillfor_miscellaneous', 'rig_drillfor_oil', 'rig_state_alabama', 'rig_state_alaska', 'rig_state_alberta', 'rig_state_arizona', 'rig_state_arkansas', 'rig_state_british_columbia', 'rig_state_california', 'rig_state_colorado', 'rig_state_florida', 'rig_state_hawaii', 'rig_state_idaho', 'rig_state_illinois', 'rig_state_indiana', 'rig_state_kansas', 'rig_state_kentucky', 'rig_state_louisiana', 'rig_state_manitoba', 'rig_state_michigan', 'rig_state_mississippi', 'rig_state_montana', 'rig_state_nebraska', 'rig_state_nevada', 'rig_state_new_mexico', 'rig_state_new_york', 'rig_state_newfoundland_and_labrador', 'rig_state_nl_offshore', 'rig_state_north_dakota', 'rig_state_nova_scotia', 'rig_state_ohio', 'rig_state_oklahoma', 'rig_state_oregon', 'rig_state_pennsylvania', 'rig_state_saskatchewan', 'rig_state_south_dakota', 'rig_state_texas', 'rig_state_utah', 'rig_state_virginia', 'rig_state_west_virginia', 'rig_state_wyoming', 'rig_traj_directional', 'rig_traj_horizontal', 'rig_traj_other', 'rig_traj_vertical', 'us_production_mbbld', 'fed_funds', 'unemployment', 'indpro', 'cpi', 'ppi', 'ng_price', 'recession', 't_bill_3m', 'treasury_2y', 'treasury_10y', 'sp500', 'sp500_ret_m', 'wti_mom_pct', 'cpi_mom_pct', 'ppi_mom_pct']
+15:58:08  INFO        saved master_daily → /Users/karinagutierrez/Documents/OMSCS/CS6242/Group Project/grp132_datawrangler/data/processed/master_daily.csv  (5270 rows × 5 cols)
+15:58:08  INFO        saved master_weekly → /Users/karinagutierrez/Documents/OMSCS/CS6242/Group Project/grp132_datawrangler/data/processed/master_weekly.csv  (227 rows × 14 cols)
+15:58:08  INFO        saved master_monthly → /Users/karinagutierrez/Documents/OMSCS/CS6242/Group Project/grp132_datawrangler/data/processed/master_monthly.csv  (155 rows × 81 cols)
+15:58:08  INFO        saved master_weekly_no_rig → /Users/karinagutierrez/Documents/OMSCS/CS6242/Group Project/grp132_datawrangler/data/processed/master_weekly_no_rig.csv  (227 rows × 13 cols)
+15:58:08  INFO        saved master_monthly_no_rig → /Users/karinagutierrez/Documents/OMSCS/CS6242/Group Project/grp132_datawrangler/data/processed/master_monthly_no_rig.csv  (155 rows × 17 cols)
+15:58:08  INFO      ============================================================
+15:58:08  INFO      STEP 4 — Exploratory Data Analysis
+15:58:08  INFO      ============================================================
+15:58:08  INFO        summary stats saved → /Users/karinagutierrez/Documents/OMSCS/CS6242/Group Project/grp132_datawrangler/outputs/summary_master_daily.csv
+15:58:08  INFO        summary stats saved → /Users/karinagutierrez/Documents/OMSCS/CS6242/Group Project/grp132_datawrangler/outputs/summary_master_weekly.csv
+15:58:08  INFO        summary stats saved → /Users/karinagutierrez/Documents/OMSCS/CS6242/Group Project/grp132_datawrangler/outputs/summary_master_monthly.csv
+15:58:08  INFO        summary stats saved → /Users/karinagutierrez/Documents/OMSCS/CS6242/Group Project/grp132_datawrangler/outputs/summary_master_weekly_no_rig.csv
+15:58:08  INFO        summary stats saved → /Users/karinagutierrez/Documents/OMSCS/CS6242/Group Project/grp132_datawrangler/outputs/summary_master_monthly_no_rig.csv
+15:58:08  INFO        pearson correlation matrix saved → /Users/karinagutierrez/Documents/OMSCS/CS6242/Group Project/grp132_datawrangler/outputs/corr_pearson_monthly.csv
+15:58:08  INFO        spearman correlation matrix saved → /Users/karinagutierrez/Documents/OMSCS/CS6242/Group Project/grp132_datawrangler/outputs/corr_spearman_monthly.csv
+15:58:08  INFO        CCF WTI → Rig Count: peak lag = 4 months (r=0.602)
+15:58:08  INFO        CCF WTI → Production: peak lag = -18 months (r=0.181)
+15:58:08  INFO        CCF WTI → Unemployment: peak lag = -14 months (r=0.192)
+15:58:08  INFO        CCF WTI → Industrial Production: peak lag = 1 months (r=0.416)
+15:58:08  INFO        CCF WTI → Fed Funds: peak lag = 12 months (r=0.333)
+15:58:08  INFO        Lagged OLS WTI→rig_count: best lag=4, R²=0.418, p=0.0000
+15:58:08  INFO        Lagged OLS WTI→us_production_mbbld: best lag=16, R²=0.019, p=0.1011
+15:58:08  INFO        Granger WTI→rig_count: significant at lags [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+15:58:08  INFO        Granger WTI→us_production_mbbld: significant at lags [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+15:58:08  INFO        figure saved → /Users/karinagutierrez/Documents/OMSCS/CS6242/Group Project/grp132_datawrangler/outputs/figures/01_time_series_overview.png
+15:58:08  INFO        figure saved → /Users/karinagutierrez/Documents/OMSCS/CS6242/Group Project/grp132_datawrangler/outputs/figures/02_wti_vs_rig_count.png
+15:58:08  INFO        figure saved → /Users/karinagutierrez/Documents/OMSCS/CS6242/Group Project/grp132_datawrangler/outputs/figures/03_wti_vs_production.png
+15:58:09  INFO        figure saved → /Users/karinagutierrez/Documents/OMSCS/CS6242/Group Project/grp132_datawrangler/outputs/figures/04_wti_vs_macro.png
+15:58:12  INFO        figure saved → /Users/karinagutierrez/Documents/OMSCS/CS6242/Group Project/grp132_datawrangler/outputs/figures/05_correlation_heatmap.png
+15:58:12  INFO        figure saved → /Users/karinagutierrez/Documents/OMSCS/CS6242/Group Project/grp132_datawrangler/outputs/figures/06_lag_plots_rig_count.png
+15:58:12  INFO        figure saved → /Users/karinagutierrez/Documents/OMSCS/CS6242/Group Project/grp132_datawrangler/outputs/figures/07_ccf_wti_vs_rig_count.png
+15:58:13  INFO        figure saved → /Users/karinagutierrez/Documents/OMSCS/CS6242/Group Project/grp132_datawrangler/outputs/figures/08_lagged_reg_rig_count.png
+15:58:13  INFO        figure saved → /Users/karinagutierrez/Documents/OMSCS/CS6242/Group Project/grp132_datawrangler/outputs/figures/06_lag_plots_us_production_mbbld.png
+15:58:13  INFO        figure saved → /Users/karinagutierrez/Documents/OMSCS/CS6242/Group Project/grp132_datawrangler/outputs/figures/07_ccf_wti_vs_us_production_mbbld.png
+15:58:13  INFO        figure saved → /Users/karinagutierrez/Documents/OMSCS/CS6242/Group Project/grp132_datawrangler/outputs/figures/08_lagged_reg_us_production_mbbld.png
+15:58:14  INFO        figure saved → /Users/karinagutierrez/Documents/OMSCS/CS6242/Group Project/grp132_datawrangler/outputs/figures/09_recession_overlays.png
+15:58:14  INFO        figure saved → /Users/karinagutierrez/Documents/OMSCS/CS6242/Group Project/grp132_datawrangler/outputs/figures/10_returns_distribution.png
+15:58:14  INFO      All EDA figures saved to /Users/karinagutierrez/Documents/OMSCS/CS6242/Group Project/grp132_datawrangler/outputs/figures
+15:58:14  INFO      Pipeline complete in 28s. Outputs in: /Users/karinagutierrez/Documents/OMSCS/CS6242/Group Project/grp132_datawrangler/outputs
+15:58:14  INFO      Master datasets in: /Users/karinagutierrez/Documents/OMSCS/CS6242/Group Project/grp132_datawrangler/data/processed
