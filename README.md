@@ -1,4 +1,4 @@
-This repository is used for the CSE6242 Group project titled: Tracking Oil Price Impacts on Drilling, Formations, and Economic Trends.
+This repository is used for Tracking Oil Price Impacts on Drilling, Formations, and Economic Trends.
 
 ## Dash Explorer
 
