@@ -1,4 +1,4 @@
-This repository is used for Tracking Oil Price Impacts on Drilling, Formations, and Economic Trends.
+This repository is used for the CSE6242 Group project titled: Tracking Oil Price Impacts on Drilling, Formations, and Economic Trends.
 
 ## Dash Explorer
 
@@ -19,6 +19,17 @@ Reference the 'docs/' sub-root for implementation details for the Change Detecti
 ---
 
 ## Changelog — Joshua Lutkemuller
+
+### 2026-04-13
+- **Added** Vector Autoregression (VAR) Model section to `dash_app_final.py`
+  - Loads pre-computed VAR outputs from `var_project/outputs/` at startup
+  - Re-fits VAR(1) live to generate impulse response functions
+  - Overview card: approach summary, key findings, and model diagnostics (AIC = 8.229, lag = 1, n = 153)
+  - Historical % change time series chart for WTI, rig count, and INDPRO
+  - 12-month rig count forecast chart with shaded forecast horizon
+  - Impulse response function (IRF) chart: WTI price shock → rig count response over 12 months
+  - VAR(1) coefficient table with p-value significance highlighting for all three equations
+- **Pushed** branch `integration-of-var-model` to remote
 
 ### 2026-04-09
 - **Merged PR #6** — Change Detection Dashboard Updates & Fixes
